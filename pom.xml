@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.pucrs.gaph</groupId>
+    <artifactId>mpsocdebugger</artifactId>
+    <version>1.2.1</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>13</maven.compiler.source>
+        <maven.compiler.target>13</maven.compiler.target>
+    </properties>
+    <build>
+<!--     	 <resources> -->
+<!-- 	      <resource> -->
+<!-- 	        <directory>resources</directory> -->
+<!-- 	      </resource> -->
+<!-- 	     </resources> -->
+	     
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+	        <plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	        	<artifactId>maven-jar-plugin</artifactId>
+                        <version>3.2.0</version>
+	        	<configuration>
+	        		<archive>
+	        			<manifest>
+	        				<addClasspath>true</addClasspath>
+                			<classpathPrefix>lib/</classpathPrefix>
+	        				<mainClass>br.pucrs.mpsocdebugger.source.MainFrame</mainClass>
+	        			</manifest>
+	        		</archive>
+	        	</configuration>
+	        </plugin>
+		<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-dependency-plugin</artifactId>
+			    <version>2.4</version>
+			    <executions>
+			        <execution>
+			            <id>copy</id>
+			            <!--<phase>package</phase>-->
+                                    <phase>process-resources</phase>
+			            <goals>
+			                <goal>copy-dependencies</goal>
+			            </goals>
+			            <configuration>
+			                <outputDirectory>
+			                    ${project.build.directory}/lib
+			                </outputDirectory>
+			            </configuration>
+			        </execution>
+			    </executions>
+		</plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <executions>
+                        <execution>
+                            <id>copy-files-on-build</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/dist</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.build.directory}</directory>
+                                        <include>*.jar</include>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                    <resource>
+                                        <directory>${project.build.directory}</directory>
+                                        <include>lib/*.jar</include>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+        </plugins>
+    </build>
+    <dependencies>
+        <!-- Dependencia no repositório maven: https://search.maven.org/artifact/org.netbeans.external/AbsoluteLayout -->
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>[RELEASE123,)</version>
+            <scope>compile</scope>
+            
+<!--             <version>RELEASE90</version> -->
+          </dependency>
+    </dependencies>
+</project>
