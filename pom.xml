@@ -36,7 +36,7 @@
 		<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-dependency-plugin</artifactId>
-			    <version>2.4</version>
+			    <version>3.1.2</version>
 			    <executions>
 			        <execution>
 			            <id>copy</id>
@@ -74,6 +74,11 @@
                                     <resource>
                                         <directory>${project.build.directory}</directory>
                                         <include>lib/*.jar</include>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                    <resource>
+                                        <directory>${basedir}</directory>
+                                        <include>projects/</include>
                                         <filtering>false</filtering>
                                     </resource>
                                 </resources>
